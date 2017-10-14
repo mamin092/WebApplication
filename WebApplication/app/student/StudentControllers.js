@@ -3,9 +3,6 @@ var App;
     var Student = /** @class */ (function () {
         function Student() {
         }
-        Student.prototype.getInfo = function () {
-            return this.name + " " + this.phone;
-        };
         return Student;
     }());
     App.Student = Student;
@@ -13,28 +10,41 @@ var App;
         function StudentController(studentService) {
             this.student = new Student();
             this.studentService = studentService;
-            console.log("I am in Student Controller");
+            console.log("I am in student controller");
         }
-        StudentController.prototype.disply = function () {
-            this.information = this.student.getInfo();
-        };
         StudentController.prototype.add = function () {
-            this.studentService.students.push(this.student);
-            this.student = new Student();
+            var self = this;
+            var success = function (successResporse) {
+                console.log(successResporse);
+                self.reset();
+            };
+            var error = function (errorResponse) {
+                console.log(errorResponse);
+            };
+            this.studentService.save(self.student).then(success, error);
         };
         StudentController.prototype.reset = function () {
             this.student = new Student();
         };
+        StudentController.$inject = ["StudentService"];
         return StudentController;
     }());
-    // var app = angular.module('app', []);
     angular.module('app').controller("StudentController", (StudentController));
     var StudentsController = /** @class */ (function () {
         function StudentsController(studentService) {
             this.studentService = studentService;
-            this.students = this.studentService.students;
-            console.log("I am in students Controller", this.students);
+            var self = this;
+            self.students = [];
+            var success = function (successResponse) {
+                self.students = successResponse.data;
+                console.log(self.students);
+            };
+            var error = function (errorResponse) {
+                alert(errorResponse);
+            };
+            this.studentService.get().then(success, error);
         }
+        StudentsController.$inject = ["StudentService"];
         return StudentsController;
     }());
     angular.module('app').controller("StudentsController", (StudentsController));

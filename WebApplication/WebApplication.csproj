@@ -71,6 +71,8 @@
     <None Include="packages.config" />
     <Content Include="partials\student\student-entry.tpl.html" />
     <Content Include="partials\student\student-list.tpl.html" />
+    <Content Include="Scripts\angular-resource.js" />
+    <Content Include="Scripts\angular-resource.min.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
@@ -96,7 +98,7 @@
     <TypeScriptCompile Include="app\app.config.ts" />
     <TypeScriptCompile Include="app\home\HomeControllers.ts" />
     <TypeScriptCompile Include="app\student\StudentControllers.ts" />
-    <TypeScriptCompile Include="app\student\studentService.ts" />
+    <TypeScriptCompile Include="app\student\StudentService.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular-ui-router\index.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-component-router.d.ts" />
