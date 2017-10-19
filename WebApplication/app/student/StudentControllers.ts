@@ -1,12 +1,9 @@
 ﻿module App {
-   
-
-
     export class Student {
 
-        id: string;
-        name: string;
-        phone: string;
+        public id: string;
+        public name: string;
+        public phone: string;
 
        
     }
@@ -23,18 +20,16 @@
             this.studentService = studentService;
             console.log("I am in student controller");
         }
-
-       
-
+      
         add(): void {
 
             var self = this;
-            let success = function (successResporse) {
-                console.log(successResporse);
+            let success = function (response) {
+                console.log(response);
                 self.reset();
             };
-            let error = function (errorResponse) {
-                console.log(errorResponse);
+            let error = function (errorReason) {
+                console.log(errorReason);
             };
             this.studentService.save(self.student).then(success, error);
            

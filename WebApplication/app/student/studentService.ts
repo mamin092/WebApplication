@@ -25,7 +25,7 @@
             };
 
             var f2 = function (errorResponse) {
-                console.log(errorResponse)
+                console.log(errorResponse);
                 deffered.reject(errorResponse);
             };
             self.http.get("http://localhost:5480/api/students").then(f1,f2);

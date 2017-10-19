@@ -17,7 +17,7 @@ var App;
                 console.log(errorResponse);
                 deffered.reject(errorResponse);
             };
-            self.http.get("http://localhost:5480/api/values").then(f1, f2);
+            self.http.get("http://localhost:5480/api/students").then(f1, f2);
             return deffered.promise;
         };
         StudentService.prototype.save = function (student) {
@@ -31,7 +31,7 @@ var App;
                 console.log(errorResponse);
                 deffered.reject(errorResponse);
             };
-            self.http.post("http://localhost:5480/api/values", student).then(f1, f2);
+            self.http.post("http://localhost:5480/api/students", student).then(f1, f2);
             return deffered.promise;
         };
         StudentService.$inject = ["$http", "$q"];

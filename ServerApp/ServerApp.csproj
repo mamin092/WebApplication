@@ -165,9 +165,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710141259079_AddMig.cs" />
-    <Compile Include="Migrations\201710141259079_AddMig.Designer.cs">
-      <DependentUpon>201710141259079_AddMig.cs</DependentUpon>
+    <Compile Include="Migrations\201710190627154_StudentAdded.cs" />
+    <Compile Include="Migrations\201710190627154_StudentAdded.Designer.cs">
+      <DependentUpon>201710190627154_StudentAdded.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\LmsDbContext.cs" />
@@ -201,8 +201,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710141259079_AddMig.resx">
-      <DependentUpon>201710141259079_AddMig.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710190627154_StudentAdded.resx">
+      <DependentUpon>201710190627154_StudentAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

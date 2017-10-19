@@ -18,8 +18,9 @@
                     console.log(error);
                     alert(error);
 
-                }
-                );
+                 }
+
+             );
         }
 
         now: string;

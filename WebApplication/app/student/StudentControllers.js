@@ -14,12 +14,12 @@ var App;
         }
         StudentController.prototype.add = function () {
             var self = this;
-            var success = function (successResporse) {
-                console.log(successResporse);
+            var success = function (response) {
+                console.log(response);
                 self.reset();
             };
-            var error = function (errorResponse) {
-                console.log(errorResponse);
+            var error = function (errorReason) {
+                console.log(errorReason);
             };
             this.studentService.save(self.student).then(success, error);
         };
