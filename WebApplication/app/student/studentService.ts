@@ -6,7 +6,8 @@
 
         students: Student[];
 
-        static $inject = ["$http","$q"];
+        static $inject = ["$http", "$q"];
+
         constructor(http: angular.IHttpService, q: angular.IQService) {
             this.students = [];
             this.http = http;
