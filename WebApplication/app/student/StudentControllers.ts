@@ -1,11 +1,17 @@
 ﻿module App {
+
     export class Student {
+         id: string;
+         name: string;
+         phone: string;
+    }
 
-        public id: string;
-        public name: string;
-        public phone: string;
-
-       
+    export class StudentRequestModel {
+         name: string;
+         phone: string;
+         orderBy: string;
+         isAscending: boolean;
+        page:number;
     }
 
     class StudentController {
@@ -20,19 +26,20 @@
             this.studentService = studentService;
             console.log("I am in student controller");
         }
-      
-        add(): void {
 
+        add(): void {
             var self = this;
             let success = function (response) {
                 console.log(response);
                 self.reset();
             };
+
             let error = function (errorReason) {
-                console.log(errorReason);
+                console.error(errorReason);
             };
+
             this.studentService.save(self.student).then(success, error);
-           
+
         }
 
         reset(): void {
@@ -45,6 +52,7 @@
 
     class StudentsController {
 
+        searchRequest: StudentRequestModel;
         students: Student[];
         studentService: StudentService;
 
@@ -52,18 +60,58 @@
         constructor(studentService: StudentService) {
             this.studentService = studentService;
             let self = this;
-
             self.students = [];
-            let success = function (successResponse) {
-                self.students = successResponse.data;
+            self.searchRequest = new StudentRequestModel();
+            self.searchRequest.page = 1;
+
+
+            let success = function (response) {
+                self.students = response.data;
                 console.log(self.students);
             };
 
-            let error = function (errorResponse) {
-                alert(errorResponse);
+            let error = function (errorReason) {
+                alert(errorReason);
+            }
+
+            console.log('i am in Students controller constructor');
+            this.studentService.search(self.searchRequest).then(success, error);
+
+        }
+
+        search() {
+            var self = this;
+            let success = function (response) {
+                console.log(response);
+                self.students = response.data;
             };
-            this.studentService.get().then(success, error);
-         
+
+            let error = function (errorReason) {
+                console.error(errorReason);
+            };
+
+            this.studentService.search(self.searchRequest).then(success, error);
+        }
+
+        sort(property: string) {
+            var self = this;
+            self.searchRequest.orderBy = property;
+            self.searchRequest.isAscending = !self.searchRequest.isAscending;
+            self.search();
+        }
+
+        next() {
+            var self = this;
+            self.searchRequest.page = self.searchRequest.page + 1;
+            self.search();
+        }
+
+        previous() {
+            var self = this;
+            if (self.searchRequest.page > 1) {
+                self.searchRequest.page = self.searchRequest.page - 1;
+                self.search();
+            }
         }
     }
 

@@ -6,6 +6,12 @@ var App;
         return Student;
     }());
     App.Student = Student;
+    var StudentRequestModel = /** @class */ (function () {
+        function StudentRequestModel() {
+        }
+        return StudentRequestModel;
+    }());
+    App.StudentRequestModel = StudentRequestModel;
     var StudentController = /** @class */ (function () {
         function StudentController(studentService) {
             this.student = new Student();
@@ -19,7 +25,7 @@ var App;
                 self.reset();
             };
             var error = function (errorReason) {
-                console.log(errorReason);
+                console.error(errorReason);
             };
             this.studentService.save(self.student).then(success, error);
         };
@@ -35,15 +41,47 @@ var App;
             this.studentService = studentService;
             var self = this;
             self.students = [];
-            var success = function (successResponse) {
-                self.students = successResponse.data;
+            self.searchRequest = new StudentRequestModel();
+            self.searchRequest.page = 1;
+            var success = function (response) {
+                self.students = response.data;
                 console.log(self.students);
             };
-            var error = function (errorResponse) {
-                alert(errorResponse);
+            var error = function (errorReason) {
+                alert(errorReason);
             };
-            this.studentService.get().then(success, error);
+            console.log('i am in Students controller constructor');
+            this.studentService.search(self.searchRequest).then(success, error);
         }
+        StudentsController.prototype.search = function () {
+            var self = this;
+            var success = function (response) {
+                console.log(response);
+                self.students = response.data;
+            };
+            var error = function (errorReason) {
+                console.error(errorReason);
+            };
+            this.studentService.search(self.searchRequest).then(success, error);
+        };
+        StudentsController.prototype.sort = function (property) {
+            var self = this;
+            self.searchRequest.orderBy = property;
+            self.searchRequest.isAscending = !self.searchRequest.isAscending;
+            self.search();
+        };
+        StudentsController.prototype.next = function () {
+            var self = this;
+            self.searchRequest.page = self.searchRequest.page + 1;
+            self.search();
+        };
+        StudentsController.prototype.previous = function () {
+            var self = this;
+            if (self.searchRequest.page > 1) {
+                self.searchRequest.page = self.searchRequest.page - 1;
+                self.search();
+            }
+        };
         StudentsController.$inject = ["StudentService"];
         return StudentsController;
     }());
